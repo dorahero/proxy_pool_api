@@ -1,6 +1,7 @@
 from scrapy import item
 from bs4 import BeautifulSoup
 import scrapy
+import re
 from proxy_scraper.items import ProxyScraperItem
 
 class scrapyProxy(scrapy.Spider):
@@ -26,7 +27,8 @@ class scrapyProxy(scrapy.Spider):
                 else: scheme = 'http'
                 proxy = "%s://%s:%s"%(scheme, ip, port)
                 # if anonymity != 'anonymous' and scheme == 'https':
-                # if scheme == 'https':         
+                # if scheme == 'https':       
+                item['_id'] =  ip.replace('.', '')+port
                 item['scheme']=scheme
                 item['proxy']=proxy
                 item['port']=port

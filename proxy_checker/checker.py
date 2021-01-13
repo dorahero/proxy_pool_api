@@ -49,11 +49,9 @@ if __name__ == "__main__":
     pc = ProxyModel("proxy_checked")
     data1=list(pc.get_all_data())   
     pc.drop_collection()    
-    data = data + data1   
+    data = data # + data1   
     print(data)
     checked_list = ProxyChecker(proxies=data).check()    
     pc = ProxyModel("proxy_checked").insert(checked_list)
-    pm.drop_collection()
-
 
 

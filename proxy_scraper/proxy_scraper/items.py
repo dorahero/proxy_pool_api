@@ -14,6 +14,7 @@ class ProxyScraperItem(scrapy.Item):
         'port': port        
         }
     """    
+    _id = scrapy.Field()
     scheme = scrapy.Field()
     proxy =scrapy.Field()
     port=scrapy.Field()
