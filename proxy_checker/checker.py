@@ -10,14 +10,22 @@ class ProxyChecker:
     def check(self):
         checked_proxies=list()
         socket.setdefaulttimeout(10)               
+        count = 0
         for index, currentProxy in enumerate(self.proxies):
             print(f"checking: {self.proxies[index]}")
             _ = currentProxy.get("proxy").split("://")
             proxy = _[1]
             uri = _[0]
-            if not ProxyChecker.is_bad_proxy(uri, proxy):                
+            if not ProxyChecker.is_bad_proxy(uri, proxy) and count < 1500:                
                 print(f"worked proxy: {proxy}")
                 checked_proxies.append(self.proxies[index])
+                try:
+                    ProxyModel("proxy_checked").insert([self.proxies[index]])
+                    count += 1
+                    ProxyModel("proxy_pool_bk").insert([self.proxies[index]]) 
+                except Exception as e:
+                    print(e)
+                    print(self.proxies[index])
         return checked_proxies
 
             
@@ -49,9 +57,9 @@ if __name__ == "__main__":
     pc = ProxyModel("proxy_checked")
     data1=list(pc.get_all_data())   
     pc.drop_collection()    
-    data = data # + data1   
+    data = data + data1   
     print(data)
-    checked_list = ProxyChecker(proxies=data).check()    
-    pc = ProxyModel("proxy_checked").insert(checked_list)
+    checked_list = ProxyChecker(proxies=data).check()   
+    pm.drop_collection()
 
 
