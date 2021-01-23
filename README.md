@@ -1,6 +1,6 @@
 # Modovision private proxy pool
 - [x] mongodb
-- [x] [mongo express (GUI)](http://IP:8082/)
+- [x] mongo express (GUI)
 - [x] [scylla](https://github.com/imWildCat/scylla)
 - [x] automatically check the ips in proxy pool (located in mongo)
 - [x] use ip+port to be the value of _id, so no repeat proxy
