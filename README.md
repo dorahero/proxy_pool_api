@@ -1,17 +1,40 @@
 # Modovision private proxy pool
 - [x] mongodb
-- [x] [mongo express (GUI)](http://172.16.16.103:8082/)
+- [x] [mongo express (GUI)](http://IP:8082/)
 - [x] [scylla](https://github.com/imWildCat/scylla)
 - [x] automatically check the ips in proxy pool (located in mongo)
-- [ ] visualized the process of automation (e.g. airflow ..etc)
+- [x] use ip+port to be the value of _id, so no repeat proxy
+- [x] visualized the process of automation (e.g. airflow ..etc)
 
 # Usage scylla:
 scylla is an open source api from [here](https://github.com/imWildCat/scylla) 
 
-## python
+## Python: method 1
+```python
+class MongoProxies(object):
+    def __init__(self, collection) -> None:
+        connection = pymongo.MongoClient(
+            host=MONGODB_HOST,
+            port=MONGODB_PORT,
+            username=MONGODB_USERNAME,
+            password=MONGODB_PASSWORD
+        )
+        self.__collection=collection
+        self.db=connection[MONGODB_DB]
+        self.collection=self.db[collection]
+
+    def get_all_proxies(self):
+        return [f.get("proxy") for f in self.collection.find({})]
+```
+### Then get the schema of the respond list object as follow:
+```python
+MongoProxies("proxy_checked").get_all_proxies()
+```
+
+## Python: method 2
 ```python
 import requests
-res_json = reqests.get("http://172.16.16.103:8899/api/v1/proxies").json()
+res_json = reqests.get("http://IP:8899/api/v1/proxies").json()
 
 print(res_json)
 ```
@@ -48,8 +71,3 @@ print(res_json)
 }
 ```
 to get more api information please check [here](https://github.com/imWildCat/scylla)
----
-# Usage of the Automation check proxy:
-```cmd
-./start.sh
-```

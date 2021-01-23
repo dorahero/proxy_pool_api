@@ -2,4 +2,5 @@ scylla
 env
 mongo-volume
 .vscode
+airflow
 __pycache__
