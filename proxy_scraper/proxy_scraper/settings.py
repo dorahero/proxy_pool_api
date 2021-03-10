@@ -65,7 +65,7 @@ ROBOTSTXT_OBEY = True
 ITEM_PIPELINES = {
    'proxy_scraper.pipelines.ProxyScraperPipeline': 300,
 }
-MONGODB_SERVER = "172.16.16.139"
+MONGODB_SERVER = "mongo"
 MONGODB_PORT = 27017
 MONGODB_DB = "scrapy"
 MONGODB_COLLECTION = "proxy_pool"

@@ -3,4 +3,4 @@ COPY ./proxy_scraper /proxy_scraper
 WORKDIR /proxy_scraper
 RUN pip install -r requirements.txt
 ENTRYPOINT [ "scrapy" ]
-CMD [ "crawl proxy" ]
+CMD []
